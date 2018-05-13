@@ -1,0 +1,12 @@
+<div >
+  <p>
+    An appealing way to present data
+  </p>
+  <!-- <pre>{{main.usersModel | json }} </pre> -->
+  <ul ng-repeat="x in main.usersModel">
+    <li >
+      {{x}}
+    </li>
+  </ul>
+  <a href="#!/photos/{{main.uId}}"  >  {{ 'Photos of Id: '+main.uId}}</a>
+</div>

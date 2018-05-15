@@ -3,23 +3,41 @@
 cs142App.controller('UserListController', ['$scope',
     function ($scope) {
         $scope.main.title = 'Users';
-
-        // console.log('window.cs142models.userListModel()', window.cs142models.userListModel());
-        // $scope.main.show = true;
+    
         console.log($scope.main.show)
-        $scope.main.userList =  window.cs142models.userListModel();
+        //  $scope.main.userList =  window.cs142models.userListModel();
+
+        $scope.doneCallBack = function(model){
+            console.log('I am done. Now, to upate')
+            $scope.$apply(function(){
+                console.log('in doneCallBack')
+                $scope.main.userListModel = model  // The update happens here.
+                console.log($scope.main.userList)
+                console.log('***Get User Data****')
+            })
+        }
+
+
+        $scope.FetchModel = function(url,doneCallBack){
+            var xhttp2 = new XMLHttpRequest();
+            xhttp2.onreadystatechange = function(){
+                console.log(this.readyState, this.status)
+                if (this.readyState == 4 && this.status == 200) {
+                    $scope.data = JSON.parse(this.responseText)
+                    
+                     $scope.doneCallBack($scope.data)
+              }
+
+             } ;
+
+             xhttp2.open("GET",url,true)
+             xhttp2.send();
+             
+             
+            } 
+
         
-        // console.log('userList: ',$scope.main.userList)
-        // 
-        // $scope.main.user_id = window.cs142models.userListModel().map((x) =>x._id)
-        // $scope.main.userFirstName = window.cs142models.userListModel().map((x) =>x.first_name)
-        // $scope.main.userLastName = window.cs142models.userListModel().map((x) =>x.last_name)
-        
-
-
-
-
-
-
+         $scope.FetchModel("user/list", $scope.doneCallBack)
+         console.log('from user-listController: ' , $scope.main.userList)
     }]);
 

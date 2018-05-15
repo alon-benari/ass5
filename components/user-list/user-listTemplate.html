@@ -1,5 +1,16 @@
-
-<div ng-repeat = "x in main.userList">
-  <a  href= "#!/users/{{x._id}}"  >{{x.first_name +' '+x.last_name }}</a> <br>
+ 
+ <div class = "user-list">
+    <p>
+    users list:
+  </p>
+<div  ng-repeat = "x in main.userListModel">
+ 
+  
+   <li>
+     <a  href= "#!/users/{{x._id}}"  >{{x.first_name +' '+x.last_name }}</a> <br>
+   </li> 
+ 
+  
   <!-- <pre>$routeParams = {{$routeParams}}</pre> -->
 </div>
+ </div>

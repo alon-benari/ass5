@@ -9,15 +9,44 @@ cs142App.controller('UserPhotosController', ['$scope', '$routeParams',
     var userId = $routeParams.userId;
     console.log('UserPhoto of ', $routeParams.userId);
 
-    console.log('window.cs142models.photoOfUserModel($routeParams.userId)',
-       window.cs142models.photoOfUserModel(userId));
-    $scope.main.photoData = window.cs142models.photoOfUserModel(userId)
+    // console.log('window.cs142models.photoOfUserModel($routeParams.userId)',
+      //  window.cs142models.photoOfUserModel(userId));
+    // $scope.main.photoData = window.cs142models.photoOfUserModel(userId)
     $scope.main.context = 'Photos of: '
     console.log($scope.main.photoData)
+    //
+    // Make a call to the server
+    $scope.doneCallBack = function(model){
+      console.log('I am done. Now, to upate')
+      $scope.$apply(function(){
+          console.log('in doneCallBack')
+          $scope.main.photoData= model  // The update happens here.
+          console.log($scope.main.photoData);
+          console.log('***Get Photo by id****')
+      })
+  }
+
+
+  $scope.FetchModel = function(url,doneCallBack){
+      var xhttp2 = new XMLHttpRequest();
+      xhttp2.onreadystatechange = function(){
+          console.log(this.readyState, this.status)
+          if (this.readyState == 4 && this.status == 200) {
+            $scope.data = JSON.parse(this.responseText)
+            $scope.doneCallBack($scope.data)
+        }
+       };
+       xhttp2.open("GET",url,true)
+       xhttp2.send();
+       
+       
+      } 
+
+  
+   $scope.FetchModel("photosOfUser/"+userId, $scope.doneCallBack)
+  //  console.log('from user-detailController: ' , $scope.main.usersModel)
+
 
     
-    //  
-    //  get the comments  users and dates.
-  
 
   }]);

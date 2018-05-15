@@ -25,7 +25,7 @@
         <script src="components/user-photos/user-photosController.js"></script>
         <link rel="stylesheet" type="text/css" href="components/user-photos/user-photos.css" />
 
-        <script src="modelData/photoApp.js"></script>
+        <!-- <script src="modelData/photoApp.js"></script> -->
     </head>
 
     <body layout="column">
@@ -33,6 +33,7 @@
         <md-toolbar layout = "row" layout-align = "space-between center"> 
             
                 <div layout-align ="end center" >Alon Ben-Ari</div>
+                <div>{{'version is: '+ main.version.__v}}</div>
                 <div>{{main.context+' '+main.usersModel.first_name+' '+main.usersModel.last_name}}</div>
 
             </div>
@@ -48,9 +49,10 @@
             </md-sidenav>
                
                     <md-content flex id="content">
-                            <div ng-hide = "main.show">
+                            <!-- <div ng-hide = "main.show"> -->
+                                <!-- <button  ng-click = "FetchModel()">HttpRequest</button> -->
                                  <div  ng-view></div>
-                             </div>
+                             <!-- </div> -->
                     </md-content>
               
                  

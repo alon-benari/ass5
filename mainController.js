@@ -27,6 +27,40 @@ cs142App.controller('MainController', ['$scope',
     function ($scope) {
         $scope.main = {};
         $scope.main.title = 'Users';
-        $scope.main.show = true
-        console.log($scope.main.show)        
+        $scope.main.show = true;
+        console.log($scope.main.show);    
+    
+    
+        $scope.doneCallBack = function(model){
+            console.log('I am done. Now, to upate')
+            $scope.$apply(function(){
+                console.log('in doneCallBack')
+                $scope.main.version = model  // The update happens here.
+                console.log(typeof(model))
+                console.log('****versioning***')
+            })
+        }
+        
+       
+        $scope.FetchModel = function(url,doneCallBack){
+            var xhttp2 = new XMLHttpRequest();
+            xhttp2.onreadystatechange = function(){
+                console.log(this.readyState, this.status)
+                if (this.readyState == 4 && this.status == 200) {
+                    $scope.data = JSON.parse(this.responseText)
+                    $scope.doneCallBack($scope.data)
+              }
+             } ;
+
+             xhttp2.open("GET",url,true)
+             xhttp2.send();
+             
+             
+            } 
+        
+        $scope.FetchModel("test/info",$scope.doneCallBack);
+                
+        
+
+        
     }]);
